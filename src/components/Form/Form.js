@@ -14,12 +14,23 @@ class Form extends Component {
   handleChange = event => {
     this.setState({[event.target.name]: event.target.value})
   }
+  clearInputs = () => {
+    this.setState({stance:'', name: '', obstacle: '', tutorial: ''})
+  }
+  submitIdea = event => {
+    event.preventDefault()
+    const newTrick = {
+      id: Date.now(),
+      ...this.state
+    }
+    this.props.addTrick(newTrick)
+    this.clearInputs()
+  }
   render() {
     return (
       <form>
-        <select name="stance" id="stance">
-          <option value="chooseStance">Choose your Stance</option>
-          <option value="regular">Regular</option>
+        <select name="stance" id="stance" onChange={event => this.handleChange(event)}>
+          <option value="">Choose your Stance</option>
           <option value="regular">Regular</option>
           <option value="switch">Switch</option>
         </select>
@@ -30,8 +41,8 @@ class Form extends Component {
           value={this.state.name}
           onChange={event => this.handleChange(event)}
         />
-        <select name="obstacle" id="obstacle">
-          <option value="chooseObstacle">Choose your Obstacle</option>
+        <select name="obstacle" id="obstacle" onChange={event => this.handleChange(event)}>
+          <option value="">Choose your Obstacle</option>
           <option value="flatground">Flatground</option>
           <option value="ledge">Ledge</option>
           <option value="rail">Rail</option>
@@ -45,7 +56,7 @@ class Form extends Component {
           value={this.state.tutorial}
           onChange={event => this.handleChange(event)}
         />
-        <button>
+        <button onClick={event => this.submitIdea(event)}>
           Send It!
         </button>
       </form>

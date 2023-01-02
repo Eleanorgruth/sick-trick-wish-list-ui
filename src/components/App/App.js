@@ -11,17 +11,18 @@ class App extends Component {
       tricks: []
     }
   }
-
   componentDidMount() {
     getData()
       .then(data=>this.setState({tricks: data}))
   }
-
+  addTrick = (newTrick) => {
+    this.setState({ tricks: [...this.state.tricks, newTrick] })
+  }
   render() {
     return (
       <div className="App">
         <h1>Sick Trick Wish List</h1>
-        <Form/>
+        <Form addTrick={this.addTrick}/>
         <CardContainer tricks={this.state.tricks}/>
       </div>
     );
