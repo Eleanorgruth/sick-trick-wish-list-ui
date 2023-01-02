@@ -28,7 +28,7 @@ class Form extends Component {
   }
   render() {
     return (
-      <form>
+      <form className="form">
         <select name="stance" id="stance" onChange={event => this.handleChange(event)}>
           <option value="">Choose your Stance</option>
           <option value="regular">Regular</option>

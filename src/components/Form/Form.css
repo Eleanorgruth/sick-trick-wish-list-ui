@@ -1,0 +1,21 @@
+select {
+  font-family: 'Fredoka One', cursive;
+  margin: 5px;
+  border-radius: 10%;
+  height: 40px;
+  border: none;
+}
+input {
+  font-family: 'Fredoka One', cursive;
+  margin: 5px; 
+  border-radius: 10%;
+  height: 40px;
+  border: none;
+}
+button {
+  font-family: 'Fredoka One', cursive;
+  margin: 5px; 
+  border-radius: 10%;
+  height: 40px;
+  border: none;
+}
