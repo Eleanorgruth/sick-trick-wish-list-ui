@@ -1,37 +1,34 @@
-import { Component } from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import { getData, postData, deleteData } from "../../apiCalls"
 import CardContainer from '../CardContainer/CardContainer';
 import Form from '../Form/Form'
 
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      tricks: []
-    }
-  }
-  componentDidMount() {
+const App = () => {
+  const [trick, updateTrick] = useState([])
+
+  useEffect(()=> {
     getData()
-      .then(data=>this.setState({tricks: data}))
-  }
-  addTrick = (newTrick) => {
+      .then(data=>updateTrick(data))
+  }, []) 
+  
+  const addTrick = (newTrick) => {
     postData(newTrick)
-      .then(data=> this.setState({ tricks: [...this.state.tricks, data] }))
+      .then(data=> updateTrick([...trick, data]))
   }
-  deleteTrick = (id) => {
+  const deleteTrick = (id) => {
     deleteData(id)
-      .then(data=>this.setState({tricks: data}))
+      .then(data=>updateTrick(data))
   }
-  render() {
     return (
       <div className="App">
         <h1>Sick Trick Wish List</h1>
-        <Form addTrick={this.addTrick}/>
-        <CardContainer tricks={this.state.tricks} deleteTrick={this.deleteTrick}/>
+        <Form addTrick={addTrick}/>
+        <CardContainer tricks={trick} deleteTrick={deleteTrick}/>
       </div>
     );
-  }
 }
+
+
 
 export default App;

@@ -1,35 +1,32 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./Form.css"
 
-class Form extends Component {
-  constructor() {
-    super()
-    this.state = {
-      stance:'', 
-      name: '',
-      obstacle: '',
-      tutorial: ''
-    }
+const Form = ({ addTrick }) => {
+  const [stance, updateStance] = useState('')
+  const [name, updateName] = useState('')
+  const [obstacle, updateObstacle] = useState('')
+  const [tutorial, updateTutorial] = useState('')
+
+  const clearInputs = () => {
+    updateStance('')
+    updateName('')
+    updateObstacle('')
+    updateTutorial('')
   }
-  handleChange = event => {
-    this.setState({[event.target.name]: event.target.value})
-  }
-  clearInputs = () => {
-    this.setState({stance:'', name: '', obstacle: '', tutorial: ''})
-  }
-  submitIdea = event => {
+  const submitIdea = event => {
     event.preventDefault()
     const newTrick = {
-      id: Date.now(),
-      ...this.state
+      stance: stance,
+      name: name,
+      obstacle: obstacle,
+      tutorial: tutorial
     }
-    this.props.addTrick(newTrick)
-    this.clearInputs()
+  addTrick(newTrick)
+  clearInputs()
   }
-  render() {
     return (
       <form className="form">
-        <select name="stance" id="stance" onChange={event => this.handleChange(event)}>
+        <select name="stance" id="stance" onChange={event => updateStance(event.target.stance)}>
           <option value="">Choose your Stance</option>
           <option value="regular">Regular</option>
           <option value="switch">Switch</option>
@@ -38,10 +35,10 @@ class Form extends Component {
           type="text"
           placeholder="Name of Trick"
           name="name"
-          value={this.state.name}
-          onChange={event => this.handleChange(event)}
+          value={name}
+          onChange={event => updateName(event.target.value)}
         />
-        <select name="obstacle" id="obstacle" onChange={event => this.handleChange(event)}>
+        <select name="obstacle" id="obstacle" onChange={event => updateObstacle(event.target.obstacle)}>
           <option value="">Choose your Obstacle</option>
           <option value="flatground">Flatground</option>
           <option value="ledge">Ledge</option>
@@ -53,15 +50,14 @@ class Form extends Component {
           type="text"
           placeholder="Link to Tutorial"
           name="tutorial"
-          value={this.state.tutorial}
-          onChange={event => this.handleChange(event)}
+          value={tutorial}
+          onChange={event => updateTutorial(event.target.value)}
         />
-        <button onClick={event => this.submitIdea(event)}>
+        <button onClick={event => submitIdea(event)}>
           Send It!
         </button>
       </form>
     )
-  }
 }
 
 export default Form
