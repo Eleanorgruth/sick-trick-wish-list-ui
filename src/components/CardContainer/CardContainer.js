@@ -2,10 +2,11 @@ import React from "react";
 import "./CardContainer.css"
 import Card from "../Card/Card"
 
-const CardContainer = ({ tricks }) => {
+const CardContainer = ({ tricks, deleteTrick }) => {
   const tricksArray = tricks.map(trick => {
     return (
       <Card
+        deleteTrick={deleteTrick}
         stance={trick.stance}
         name={trick.name}
         obstacle={trick.obstacle}
