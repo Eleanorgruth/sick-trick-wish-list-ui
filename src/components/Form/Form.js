@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Form.css"
 
-const Form = ({ addTrick }) => {
+const Form = (props) => {
   const [stance, updateStance] = useState('')
   const [name, updateName] = useState('')
   const [obstacle, updateObstacle] = useState('')
@@ -16,17 +16,18 @@ const Form = ({ addTrick }) => {
   const submitIdea = event => {
     event.preventDefault()
     const newTrick = {
-      stance: stance,
-      name: name,
-      obstacle: obstacle,
-      tutorial: tutorial
+      stance,
+      name,
+      obstacle,
+      tutorial
     }
-  addTrick(newTrick)
+    console.log("New Trick", newTrick)
+  props.addTrick(newTrick)
   clearInputs()
   }
     return (
       <form className="form">
-        <select name="stance" id="stance" onChange={event => updateStance(event.target.stance)}>
+        <select name="stance" id="stance" onChange={event => updateStance(event.target.value)}>
           <option value="">Choose your Stance</option>
           <option value="regular">Regular</option>
           <option value="switch">Switch</option>
@@ -38,7 +39,7 @@ const Form = ({ addTrick }) => {
           value={name}
           onChange={event => updateName(event.target.value)}
         />
-        <select name="obstacle" id="obstacle" onChange={event => updateObstacle(event.target.obstacle)}>
+        <select name="obstacle" id="obstacle" onChange={event => updateObstacle(event.target.value)}>
           <option value="">Choose your Obstacle</option>
           <option value="flatground">Flatground</option>
           <option value="ledge">Ledge</option>
