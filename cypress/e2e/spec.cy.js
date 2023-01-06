@@ -1,9 +1,7 @@
 describe('Home page', () => {
   beforeEach(() => {
-    cy.intercept("http://localhost:3001/api/v1/tricks", {
-      method: 'GET',
-      fixture: '../fixtures/example.json'
-    })
+    cy.intercept("GET", "http://localhost:3001/api/v1/tricks", {fixture: "example"})
+    cy.intercept("POST", "http://localhost:3001/api/v1/tricks", {fixture: "post"})
     cy.visit('http://localhost:3000');
   });
   it('Should have a title', () => {
@@ -65,7 +63,7 @@ describe('Home page', () => {
     cy.get('[placeholder="Link to Tutorial"]')
       .type("www.youtube.com")
       .should('have.value', "www.youtube.com")
-    cy.get('button').click()
+    cy.get('.form > button').click()
     cy.get('.card-container > :nth-child(2)')
     cy.get('.card-container > :nth-child(2) > :nth-child(1)')
       .contains('regular Super Cool Trick')
